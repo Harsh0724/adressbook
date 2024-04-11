@@ -1,0 +1,159 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+struct contact
+{
+    char name[30];
+    char phone_no[20];
+    char email[500];
+};
+struct contact c[100];
+int n;
+void searchcontact()
+{
+    char searchquery[50];
+
+    printf("enter the name or email  of the contact you want to search \n");
+    scanf("%s", searchquery);
+    int a, found = 0;
+
+    for (a = 1; a <=n; a++)
+    {
+        if (strcmp(searchquery, c[a].name) == 0 || strcmp(searchquery, c[a].email) == 0)
+        {
+            printf("contact found\n");
+            printf("%s\n", c[a].name);
+            printf("%s\n", c[a].phone_no);
+            printf("%s\n", c[a].email);
+            found = 1;
+            break;
+        }
+    }
+    if (!found)
+    {
+        printf("contact not found\n");
+    }
+}
+void deletcontact()
+{
+    char deletequery[50];
+    int a;
+    printf("enter the name or email  of the contact you want to search \n");
+    scanf("%s", deletequery);
+    int found = 0;
+    for (a = 1; a <=n; a++)
+    {
+        if (strcmp(deletequery, c[a].name) == 0 || strcmp(deletequery, c[a].email) == 0)
+        {
+            found = 1;
+            break;
+        }
+        if (found)
+        {
+            for (; a < n - 1; a++)
+            {
+                c[a] = c[a + 1];
+            }
+            n--;
+            printf("contact deleted successfully\n");
+        }
+        else
+        {
+            printf("contact did not found\n");
+        }
+    }
+}
+void displaycontact()
+{
+    if (n == 0)
+    {
+        printf(" No Contact to display\n");
+    }
+
+    printf("Address book :\n");
+    int i;
+    for (i = 1; i <=n; i++)
+    {
+        printf("contact info %d", i);
+        printf("Namw : %s\n", c[i].name);
+        printf("Phone number :%s\n", c[i].phone_no);
+        printf("Email address :%s\n", c[i].email);
+    }
+}
+void updatecontact()
+{
+    char updatequery[50];
+     printf("enter the name or email  of the contact you want to search \n");
+    scanf("%s",updatequery);
+    int i,found=0;
+    for(i=1;i<=n;i++)
+    {
+        if(strcmp(updatequery,c[i].name)==0 || strcmp(updatequery,c[i].email)==0)
+        {
+             printf("contact found\n");
+            printf("%s\n", c[i].name);
+            printf("%s\n", c[i].phone_no);
+            printf("%s\n", c[i].email);
+
+            printf("enter new details \n");
+            printf("Name :\n");
+            scanf("%s",c[i].name);
+            printf("Phone Number :\n");
+            scanf("%s",c[i].phone_no);
+            printf("Email :\n");
+            scanf("%s",c[i].email);
+            printf("contact updated successfully \n");
+            found=1;
+            break;
+        }
+    }
+}
+int main()
+{
+
+    int i, choice;
+    // adding contact
+    printf("enter the number of contacts you want to have in your book \n");
+    scanf("%d", &n);
+    for (i = 1; i <= n; i++)
+    {
+        printf("contact info %d:\n", i);
+        printf("Name:\n");
+        scanf("%s", c[i].name);
+        printf("Phone Number :\n");
+        scanf("%s", c[i].phone_no);
+        printf("Email Address :\n");
+        scanf("%s", c[i].email);
+    }
+    printf("Address book menu :\n");
+    printf("1.Search contact(s)\n");
+    printf("2.Delete contact(s)\n");
+    printf("3.display contact(s)\n");
+    printf("4.Update contact\n");
+    printf("5.Exit the program\n");
+
+    printf("enter your choice :\n");
+    scanf("%d", &choice);
+    switch (choice)
+    {
+    case 1:
+        searchcontact();
+        break;
+    case 2:
+        deletcontact();
+        break;
+    case 3:
+        displaycontact();
+        break;
+    case 4:
+        updatecontact();
+        break;
+    case 5:
+      printf("exiting the program\n");
+      break;
+    default:
+        printf("default");
+    }
+
+    return 0;
+}
